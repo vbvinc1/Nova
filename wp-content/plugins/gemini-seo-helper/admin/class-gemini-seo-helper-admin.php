@@ -164,6 +164,18 @@ class Gemini_SEO_Helper_Admin {
 			)
 		);
 
+		// Register a setting for the Max Content Length for AI analysis.
+		register_setting(
+			'gemini_seo_helper_settings_group',
+			'gemini_seo_helper_max_content_length',
+			array(
+				'type'              => 'integer',
+				'sanitize_callback' => 'absint',
+				'default'           => 10000,
+				'description'       => __( 'Maximum number of characters to send to Gemini for content analysis.', 'gemini-seo-helper' ),
+			)
+		);
+
 		// Add a settings section for API settings.
 		add_settings_section(
 			'gemini_seo_helper_api_section',
@@ -196,6 +208,23 @@ class Gemini_SEO_Helper_Admin {
 			array( $this, 'gemini_advanced_prompt_callback' ),
 			'gemini-seo-helper',
 			'gemini_seo_helper_prompt_section'
+		);
+
+		// Add a settings section for Advanced settings.
+		add_settings_section(
+			'gemini_seo_helper_advanced_section',
+			__( 'Advanced Settings', 'gemini-seo-helper' ),
+			array( $this, 'gemini_advanced_section_callback' ),
+			'gemini-seo-helper'
+		);
+
+		// Add a settings field for Max Content Length.
+		add_settings_field(
+			'gemini_seo_helper_max_content_length_field',
+			__( 'Max Content Length', 'gemini-seo-helper' ),
+			array( $this, 'gemini_max_content_length_callback' ),
+			'gemini-seo-helper',
+			'gemini_seo_helper_advanced_section'
 		);
 	}
 
@@ -237,6 +266,26 @@ class Gemini_SEO_Helper_Admin {
 		$advanced_prompt = get_option( 'gemini_seo_helper_advanced_prompt' );
 		echo '<textarea id="gemini_seo_helper_advanced_prompt" name="gemini_seo_helper_advanced_prompt" rows="5" cols="50" class="large-text">' . esc_textarea( $advanced_prompt ) . '</textarea>';
 		echo '<p class="description">' . esc_html__( 'This prompt defines the persona and instructions for Gemini AI when generating SEO content. Default: You are an experienced Google SEO manager with 15 years of experience. Generate SEO titles, meta descriptions, and focus keywords according to the latest Google guidelines and best practices.', 'gemini-seo-helper' ) . '</p>';
+	}
+
+	/**
+	 * Callback for the Advanced Settings section.
+	 *
+	 * @since    1.0.0
+	 */
+	public function gemini_advanced_section_callback() {
+		echo '<p>' . esc_html__( 'Configure advanced options for the Gemini SEO Helper.', 'gemini-seo-helper' ) . '</p>';
+	}
+
+	/**
+	 * Callback for the Max Content Length field.
+	 *
+	 * @since    1.0.0
+	 */
+	public function gemini_max_content_length_callback() {
+		$max_length = get_option( 'gemini_seo_helper_max_content_length' );
+		echo '<input type="number" id="gemini_seo_helper_max_content_length" name="gemini_seo_helper_max_content_length" value="' . esc_attr( $max_length ) . '" class="small-text" min="1000" step="100" />';
+		echo '<p class="description">' . esc_html__( 'Set the maximum number of characters from the post content to send to Gemini for analysis. Adjust based on Gemini API limits and performance. (Default: 10000)', 'gemini-seo-helper' ) . '</p>';
 	}
 
 	/**
