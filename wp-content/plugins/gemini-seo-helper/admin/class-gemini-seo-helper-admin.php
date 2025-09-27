@@ -88,10 +88,14 @@ class Gemini_SEO_Helper_Admin {
 				'i18n'    => array(
 					'generateSeoData' => __( 'Generate SEO Data', 'gemini-seo-helper' ),
 					'generating'      => __( 'Generating...', 'gemini-seo-helper' ),
+					'applySeoData'    => __( 'Apply SEO Data', 'gemini-seo-helper' ),
+					'applying'        => __( 'Applying...', 'gemini-seo-helper' ),
 					'seoTitle'        => __( 'SEO Title', 'gemini-seo-helper' ),
 					'metaDescription' => __( 'Meta Description', 'gemini-seo-helper' ),
 					'focusKeywords'   => __( 'Focus Keywords', 'gemini-seo-helper' ),
 					'apiKeyMissing'   => __( 'Gemini API Key is missing. Please configure it in the plugin settings.', 'gemini-seo-helper' ),
+					'noPostId'        => __( 'Could not determine the post ID.', 'gemini-seo-helper' ),
+					'generatedSuccessfully' => __( 'SEO data generated successfully!', 'gemini-seo-helper' ),
 					'error'           => __( 'Error:', 'gemini-seo-helper' ),
 				),
 			)
