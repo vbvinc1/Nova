@@ -146,6 +146,7 @@ class Gemini_SEO_Helper {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'enqueue_block_editor_assets', $plugin_admin, 'enqueue_block_editor_assets' );
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_seo_meta_box' );
 
 	}
 
